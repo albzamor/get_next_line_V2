@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 12:35:02 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/11 10:29:51 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/11 14:46:05 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ char	**ft_newline(char **sl, int fd, char *buf, char **line)
 		else if (len == 0)
 		{
 			*line = ft_substr(sl[fd], 0, ft_strlen(sl[fd]));
-			free(sl[fd]);
+			ft_free(sl[fd]);
 			sl[fd] = NULL;
-			return (&*line);
+			return (line);
 		}
 		else if (len == -1)
 			return (NULL);
@@ -79,35 +79,38 @@ char	**ft_newline(char **sl, int fd, char *buf, char **line)
 	temp = sl[fd];
 	sl[fd] = ft_substr(sl[fd], ft_strchr2(sl[fd], '\n') + 1, ft_strlen(sl[fd]));
 	free(temp);
-	return (&*line);
+	return (line);
 }
 
 char *get_next_line(int fd)
 {
-	char		*buf;
+	char		*buf; // NO
 	//char		buf[BUFFER_SIZE + 1];
 	static char	*sl[4096];
 	//char		*temp;
 	char 		*line;
 	long		len;
 
-	line = ft_strdup("");
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1 )
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1 )
 		return (NULL);
 	if (!(buf = malloc(BUFFER_SIZE + 1)))
 		return (NULL);
 	if (sl[fd] == NULL)
 	{
 		len = read(fd, buf, BUFFER_SIZE);
+		if (len < 0)
+			return (NULL);
 		buf[len] = '\0';
 		sl[fd] = ft_strdup(buf);
 	}
 	ft_newline((char **)&sl, fd, &*buf, (char **)&line);
 	ft_free(buf);
+	if (sl[fd] == NULL && line[0] == '\0'){
+		free(line);
+		line = NULL;
+	}
 	return (line);
 }
-
-
 
 /* int	get_next_line(int fd, char **line)
 {
