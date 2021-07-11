@@ -1,0 +1,10 @@
+.DS_*
+a.out
+debugout
+txt
+/*.dSYM
+.vscode
+.code-workspace
+ni_*
+gnlTester/
+debugout.dSYM/
