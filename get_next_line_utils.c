@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 13:56:14 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/11 13:33:52 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:09:29 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	if (len > len_s - start - 1)
 		len = len_s - start ;
-	sub_str = malloc(sizeof(char) * (len + 1));
+	sub_str = malloc(sizeof(char) * (len + 2));
 	if (!sub_str)
 		return (NULL);
 	i = -1;
 	while ((++i < len) && s[i + start != '\0'])
 		sub_str[i] = s[start + i];
+	sub_str[i] = '\n';
 	sub_str[i] = '\0';
 	return (sub_str);
 }

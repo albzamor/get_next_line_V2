@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 12:35:02 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/12 11:58:42 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/12 19:48:32 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**ft_newline(char **sl, int fd, char *buf, char **line)
 		else if (len == -1)
 			return (NULL);
 	}
-	*line = ft_substr(sl[fd], 0, ft_strchr2(sl[fd], '\n'));
+	*line = ft_substr(sl[fd], 0, ft_strchr2(sl[fd], '\n') + 1);
 	temp = sl[fd];
 	sl[fd] = ft_substr(sl[fd], ft_strchr2(sl[fd], '\n') + 1, ft_strlen(sl[fd]));
 	free(temp);
