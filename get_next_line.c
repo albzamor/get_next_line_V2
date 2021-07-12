@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 12:35:02 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/11 14:46:05 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/12 11:58:42 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,17 @@ char	**ft_newline(char **sl, int fd, char *buf, char **line)
 	return (line);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char		*buf; // NO
-	//char		buf[BUFFER_SIZE + 1];
+	char		*buf;
 	static char	*sl[4096];
-	//char		*temp;
-	char 		*line;
+	char		*line;
 	long		len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1 )
 		return (NULL);
-	if (!(buf = malloc(BUFFER_SIZE + 1)))
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!(buf))
 		return (NULL);
 	if (sl[fd] == NULL)
 	{
@@ -105,37 +104,10 @@ char *get_next_line(int fd)
 	}
 	ft_newline((char **)&sl, fd, &*buf, (char **)&line);
 	ft_free(buf);
-	if (sl[fd] == NULL && line[0] == '\0'){
+	if (sl[fd] == NULL && line[0] == '\0')
+	{
 		free(line);
 		line = NULL;
 	}
 	return (line);
 }
-
-/* int	get_next_line(int fd, char **line)
-{
-	char		buf[BUFFER_SIZE + 1];
-	static char	*sl[4096];
-	char		*temp;
-	long long	len;
-	int			newline;
-
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1 )
-		return (-1);
-	if (fd)
-		buf[0] = '\0';
-	if (sl[fd] == NULL)
-	{
-		len = read(fd, buf, BUFFER_SIZE);
-		buf[len] = '\0';
-		sl[fd] = ft_strdup(buf);
-	}
-	newline = ft_no_newline((char **)&sl, line, fd, &*buf);
-	if (newline != 1)
-		return (newline);
-	*line = ft_substr(sl[fd], 0, ft_strchr2(sl[fd], '\n'));
-	temp = sl[fd];
-	sl[fd] = ft_substr(sl[fd], ft_strchr2(sl[fd], '\n') + 1, ft_strlen(sl[fd]));
-	free(temp);
-	return (1);
- }*/

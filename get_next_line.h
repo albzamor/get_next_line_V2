@@ -6,7 +6,7 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 12:34:07 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/11 14:46:46 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/12 12:00:27 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
-char 	*get_next_line(int fd);
+char	*get_next_line(int fd);
 char	**ft_newline(char **sl, int fd, char *buf, char **line);
 int		ft_strchr2(const char *s, int c);
 void	ft_free(void *ptr);
