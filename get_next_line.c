@@ -6,24 +6,11 @@
 /*   By: albzamor <albzamor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 12:35:02 by albzamor          #+#    #+#             */
-/*   Updated: 2021/07/12 19:48:32 by albzamor         ###   ########.fr       */
+/*   Updated: 2021/07/13 11:46:16 by albzamor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s != '\0')
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s);
-	return (NULL);
-}
 
 size_t	ft_strlen(const char *s)
 {
@@ -82,12 +69,23 @@ char	**ft_newline(char **sl, int fd, char *buf, char **line)
 	return (line);
 }
 
+char	*ft_fill_firstbuf(char **sl, int fd, char *buf)
+{
+	long long	len;
+
+	len = read(fd, buf, BUFFER_SIZE);
+	if (len < 0)
+		return (NULL);
+	buf[len] = '\0';
+	sl[fd] = ft_strdup(buf);
+	return (sl[fd]);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buf;
 	static char	*sl[4096];
 	char		*line;
-	long		len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1 )
 		return (NULL);
@@ -95,13 +93,7 @@ char	*get_next_line(int fd)
 	if (!(buf))
 		return (NULL);
 	if (sl[fd] == NULL)
-	{
-		len = read(fd, buf, BUFFER_SIZE);
-		if (len < 0)
-			return (NULL);
-		buf[len] = '\0';
-		sl[fd] = ft_strdup(buf);
-	}
+		ft_fill_firstbuf((char **)&sl, fd, &*buf);
 	ft_newline((char **)&sl, fd, &*buf, (char **)&line);
 	ft_free(buf);
 	if (sl[fd] == NULL && line[0] == '\0')
