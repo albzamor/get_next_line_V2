@@ -7,3 +7,5 @@ txt
 ni_*
 gnlTester/
 debugout.dSYM/
+.vis*
+main*

@@ -18,7 +18,7 @@ int	main ( int argc, char **argv )
 	printf("\033[0;31mseptima linea: 🚀\033[0;37m%s\n", get_next_line(fd));
 	printf("\033[0;31moctava  linea: 🚀\033[0;37m%s\n", get_next_line(fd));
 	printf("\033[0;31moctava  linea: 🚀\033[0;37m%s\n", get_next_line(fd));
-	//system("leaks a.out");
+	system("leaks a.out");
 }
 	/* get_next_line(fd, &line);
 	printf("\033[0;31mprimera linea: 🚀\033[0;37m%s", line);
